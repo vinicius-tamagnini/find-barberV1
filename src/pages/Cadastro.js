@@ -21,49 +21,35 @@ export default function Cadastro(props ,{navigation}) {
   let [complemento, setComplemento] = useState('');
   let [senha, setSenha] = useState('');
 
-  
-  let onChangeEmail = (txtEmail) =>{
-    setEmail(txtEmail)
-  }
-  let onChangeCnpj = (txtCnpj) =>{
-    setCnpj(txtCnpj)
-  }
-  let onChangeRazaoSocial = (txtRazaoSocial) =>{
-    setRazaoSocial(txtRazaoSocial)
-  }
-  let onChangeNomeb = (txtNomeB) =>{
-    setNomeB(txtNomeB)
-  }
-  let onChangeCep = (txtCep) =>{
-    setCep(txtCep)
-  }
-  let onChangeCidade = (txtCidade) =>{
-    setCidade(txtCidade)
-  }
-  let onChangeEstado = (txtEstado) =>{
-    setEstado(txtEstado)
-  }
-  let onChangeBairro = (txtBairro) =>{
-    setBairro(txtBairro)
-  }
-  let onChangeEndereco = (txtEndereco) =>{
-    setEndereco(txtEndereco)
-  }
-  let onChangeNumero = (txtNumero) =>{
-    setComplemento(txtNumero)
-  }
-  let onChangeComplemento = (txtComplemento) =>{
-    setComplemento(txtComplemento)
-  }
-  let onChangeSenha = (txtSenha) =>{
-    setSenha(txtSenha)
-  }
-
   firebase.auth().createUserWithEmailAndPassword(email,senha).then(()=>{
     navegar();
   }).catch(()=>{
    
   })
+
+  function pushFirebase(){
+
+    try{
+    firebase.database().ref('/dadosBarbeiro').push({
+      email: email,
+      cnpj: cnpj,
+      razaoSocial: razaoSocial,
+      nomeBarbearia: nomeB,
+      cep: cep,
+      cidade: cidade,
+      estado: estado,
+      bairro: bairro,
+      endereco: endereco,
+      numero: numero,
+      complemento: complemento,
+      senha: senha
+    })
+
+     } catch {
+       Alert.alert("deu ruim parcero");
+     }
+    
+  }
 
 
   return (
@@ -79,96 +65,84 @@ export default function Cadastro(props ,{navigation}) {
       <TextInput
       style= {styles.input}
       placeholder="Digite seu email"
-      value= {email}
-      onChangeText={txtEmail => onChangeEmail(txtEmail)}
+      onChangeText={email => setEmail(email)} value= {email}
       />
 
-      <Text style={styles.titulo}>CNPJ/MEI</Text>
+      <Text style={styles.titulo}>CNPJ</Text>
       <TextInput
       style= {styles.input}
       placeholder="CNPJ"
-      value= {cnpj}
-      onChangeText={txtCnpj => onChangeCnpj(txtCnpj)}
+      onChangeText={cnpj => setCnpj(cnpj)} value= {cnpj}
       />
 
       <Text style={styles.titulo}>Razão Social</Text>
       <TextInput
       style= {styles.input}
       placeholder="Insira a razão social"
-      value= {razaoSocial}
-      onChangeText={txtRazaoSocial => onChangeRazaoSocial(txtRazaoSocial)}
+      onChangeText={razaoSocial => setRazaoSocial(razaoSocial)} value= {razaoSocial}
       />
 
       <Text style={styles.titulo}>Nome da Barbearia</Text>
       <TextInput
       style= {styles.input}
       placeholder="insira o nome da sua barbearia"
-      value= {nomeB}
-      onChangeText={txtNomeB => onChangeNomeb(txtNomeB)}
+      onChangeText={nomeB => setNomeB(nomeB)} value= {nomeB}
       />
     
       <Text style={styles.titulo}>CEP</Text>
       <TextInput
       style= {styles.input}
       placeholder="Insira o CEP do seu estabelecimento"
-      value= {cep}
-      onChangeText={txtCep => onChangeCep(txtCep)}
+      onChangeText={cep => setCep(cep)} value= {cep}
       />
 
       <Text style={styles.titulo}>Cidade</Text>
       <TextInput
       style= {styles.input}
       placeholder="Insira a cidade da sua barbaria"
-      value= {cidade}
-      onChangeText={txtCidade => onChangeCidade(txtCidade)}
+      onChangeText={cidade => setCidade(cidade)} value= {cidade}
       />
 
       <Text style={styles.titulo}>Estado</Text>
       <TextInput
       style= {styles.input}
       placeholder="Insira o estado"
-      value= {estado}
-      onChangeText={txtEstado => onChangeEstado(txtEstado)}
+      onChangeText={estado => setEstado(estado)} value= {estado}
       />
       
       <Text style={styles.titulo}>Bairro</Text>
       <TextInput
       style= {styles.input}
       placeholder="Insira o bairro"
-      value= {bairro}
-      onChangeText={txtBairro => onChangeBairro(txtBairro)}
+      onChangeText={bairro => setBairro(bairro)}  value= {bairro}
       />
 
       <Text style={styles.titulo}>Endereço</Text>
       <TextInput
       style= {styles.input}
-      placeholder="insira o endereço"
-      value= {endereco}
-      onChangeText={txtEndereco => onChangeEndereco(txtEndereco)}
+      placeholder="insira o endereço"    
+      onChangeText={endereco => setEndereco(endereco)}  value= {endereco}
       />
 
       <Text style={styles.titulo}>Número</Text>
       <TextInput
       style= {styles.input}
       placeholder="Digite seu número"
-      value= {numero}
-      onChangeText={txtNumero => onChangeNumero(txtNumero)}
+      onChangeText={numero => setNumero(numero)} value= {numero}
       />
 
       <Text style={styles.titulo}>Complemento (Opcional)</Text>
       <TextInput
       style= {styles.input}
       placeholder="Digite o complemento (opcional)"
-      value= {complemento}
-      onChangeText={txtComplemento => onChangeComplemento(txtComplemento)}
+      onChangeText={complemento => setComplemento(complemento)} value= {complemento}
       />
 
       <Text style={styles.titulo}>Digite a sua senha</Text>
       <TextInput
       style= {styles.input}
       placeholder="Digite sua senha"
-      value= {senha}
-      onChangeText={txtSenha => onChangeSenha(txtSenha)}
+      onChangeText={senha => setSenha(senha)} value= {senha}
       />
 
       <Text style={styles.titulo}>Confirme a sua senha</Text>
@@ -176,7 +150,7 @@ export default function Cadastro(props ,{navigation}) {
       style= {styles.input}
       placeholder="Confirme a sua senha"
       
-      onChangeText={txtEmail => onChangeEmail(txtEmail)}
+      //onChangeText={txtEmail => Email(txtEmail)}
       />
 
       <TouchableOpacity
@@ -186,7 +160,7 @@ export default function Cadastro(props ,{navigation}) {
       >
         <Text 
         style = {styles.botaoText}
-        onPress={ () => {props.navigation.navigate('Login')}}
+        onPress={ () => {pushFirebase(), props.navigation.navigate('Login')}}
         disable = {false}  
         >
           
