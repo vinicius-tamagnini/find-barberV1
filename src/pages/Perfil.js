@@ -19,22 +19,22 @@ export default function Perfil() {
         <Text style = {styles.texto}> Nome:</Text>
         <Text>__________________________________________________</Text>
         <Image style = {styles.caneta1}
-          source={require('../../assets/icons/setazin.png')}
+          source={require('../../assets/icons/pencil.png')}
         />
         <Text style = {styles.texto}> Email:</Text>
         <Text>__________________________________________________</Text>
         <Image style = {styles.caneta2}
-          source={require('../../assets/icons/setazin.png')}
+          source={require('../../assets/icons/pencil.png')}
         />
         <Text style = {styles.texto}> Data de nascimento:</Text>
         <Text>__________________________________________________</Text>
         <Image style = {styles.caneta3}
-          source={require('../../assets/icons/setazin.png')}
+          source={require('../../assets/icons/pencil.png')}
         />
         <Text style = {styles.texto}> Cartão:</Text>
         <Text>__________________________________________________</Text>
         <Image style = {styles.caneta4}
-          source={require('../../assets/icons/setazin.png')}
+          source={require('../../assets/icons/pencil.png')}
         />
 
         <TouchableOpacity style= {styles.botaoSair}>
@@ -105,28 +105,28 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginTop: 255,
     marginLeft: 250,
-    width:48,
-    height: 46,
+    width: 35,
+    height: 35,
   },
   caneta2:{
     position: "absolute",
     marginTop: 355,
     marginLeft: 250,
-    width:48,
-    height: 46,
+    width:35,
+    height: 35,
   },
   caneta3:{
     position: "absolute",
     marginTop: 455,
     marginLeft: 250,
-    width:48,
-    height: 46,
+    width:35,
+    height: 35,
   },
   caneta4:{
     position: "absolute",
     marginTop: 555,
     marginLeft: 250,
-    width:48,
-    height: 46,
+    width:35,
+    height: 35,
   },
 });
