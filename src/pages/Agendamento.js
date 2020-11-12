@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, Button} from 'react-native';
 
 
-export default function Agendamento(){
- 
+export default function Agendamento(){ 
   return (
     <View style = {styles.container}> 
      <ScrollView style = {styles.ScrollView}>
