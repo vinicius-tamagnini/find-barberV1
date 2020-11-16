@@ -1,6 +1,6 @@
   
 import React, {useState, useEffect} from 'react';
-import { FlatList, StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, Button} from 'react-native';
 import firebase from '../Connection';
 
 
@@ -9,29 +9,7 @@ export default function Perfil(props) {
 
 const [listClientes, setListClientes] = useState([]);
 const [listaDados, setListaDados] = useState([]);
-/*
-useEffect(() => {
-  try {
-    firebase.database().ref('/dadosBabeiro').on('value', (snapshot) => {
 
-      const list = [];
-      
-      snapshot.forEach((childItem) => {
-        list.push({
-          key: childItem.key,
-          email: childItem.val().email,
-          nomeBarbearia: childItem.val().nomeBarbearia,
-        });
-      });
-      setListaDados(list);
-    })
-  } catch (error) {
-    alert(error);
-  }
-
-  
-}, [])
-*/
 useEffect(() => {
   try {
     firebase.database().ref('/dadosBarbeiro').on('value', (snapshot) => {
@@ -39,6 +17,7 @@ useEffect(() => {
       
       snapshot.forEach((childItem) => {
         list.push({
+          key: childItem.key,
           email: childItem.val().email,
           nomeBarbearia: childItem.val().nomeBarbearia,
           endereco: childItem.val().endereco
@@ -59,6 +38,23 @@ let total = listClientes.length
 for( var i = 0 ; i < total ; i++){
   if (listClientes[i].email === listEmail[0].email){
   */
+
+  function Editar(key,email,nomeBarbearia) {
+
+  }
+
+  const showConfirm = ()=> {
+     Alert.alert("digite","algo",[
+      {
+         text: "ENVIAR",
+         onPress : () => console.log("FOI"),
+      },
+      {
+        text: "CANCELAR",
+        onPress: () => console.log("FOI"),
+      },
+      ]);
+  };
     return (
         <View style = {styles.container}>
             <FlatList
@@ -66,12 +62,34 @@ for( var i = 0 ; i < total ; i++){
                 keyExtractor={(item) =>item.key}
                 renderItem={({item}) =>
                 <View>
+                 
                     <Image source={require('../../assets/icons/usuazin.png')} style={styles.usuario}/>
                     <Image source={require('../../assets/icons/perfilzin.png')} style={styles.profile}/>
                     <Image source={require('../../assets/icons/emailzin.png')} style={styles.email}/>
                     <Image source={require('../../assets/icons/calendazin.png')} style={styles.calendar}/>
+
+                    <TouchableOpacity style = {styles.botaoCaneta1} 
+
+                      onPress = {showConfirm}>
+                      <Text style = {styles.botaoEdit}> Editar </Text>
+
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style = {styles.botaoCaneta2} 
                     
+                    onPress = {showConfirm}>
+                    <Text style = {styles.botaoEdit}> Editar </Text>
+
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style = {styles.botaoCaneta3} 
                     
+                    onPress = {showConfirm}>
+                    <Text style = {styles.botaoEdit}> Editar </Text>
+
+                  </TouchableOpacity>
+                   
+
                     <View style={styles.alltexts}>
                     <Text style={styles.title}>Nome: </Text>
                     <Text style={styles.text}>{item.email}</Text>
@@ -131,24 +149,24 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 20,
     position: "absolute",
-    marginTop: 230,
+    marginTop: 260,
   },
   calendar:{
     width: 30,
     height: 30,
     marginLeft: 20,
     position: "absolute",
-    marginTop: 310,
+    marginTop: 345,
   },
   card:{
     width: 30,
     height: 30,
     marginLeft: 20,
     position: "absolute",
-    marginTop: 375,
+    marginTop: 400,
   },
   alltexts:{
-    marginTop: 10,
+    marginTop: 20,
   },
   title:{
     fontWeight: 'bold',
@@ -156,15 +174,16 @@ const styles = StyleSheet.create({
     marginLeft: 60,
   },
   text:{
+    alignSelf: "center",
     fontWeight: 'bold',
     fontSize: 16,
-    marginLeft: 120,
+    marginTop: 20,
   },
   line:{
     alignSelf: "center",
     fontWeight: 'bold',
     fontSize: 14,
-    marginTop: 7,
+    marginTop: 6
   },
   botao:{
     width: 200,
@@ -176,9 +195,49 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
   },
+  
   botaoText :{
     fontSize: 16,
     fontWeight: "bold",
     color: "#fff",
+  },
+ 
+  botaoCaneta1:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 340,
+    marginTop: 200,
+    backgroundColor: "#FFF",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoCaneta2:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 340,
+    marginTop: 300,
+    backgroundColor: "#FFF",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoCaneta3:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 340,
+    marginTop: 400,
+    backgroundColor: "#FFF",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoEdit :{
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
   },
 });

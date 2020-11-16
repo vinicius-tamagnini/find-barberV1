@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import firebase from '../Connection';
+
 export default function Login(props) {
   
 
