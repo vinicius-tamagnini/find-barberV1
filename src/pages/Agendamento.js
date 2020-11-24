@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, Button} from 'react-native';
-
+import Navbar from '../components/Navbar'
 
 export default function Agendamento(){ 
   return (
@@ -14,7 +14,7 @@ export default function Agendamento(){
      <Text style = {styles.texto}>Data: ???</Text>
      <Text style = {styles.texto}>Valor: ???</Text>
      <Text style = {styles.texto}>Hórario: ???</Text>
-     <Text style = {styles.texto}>Forma de pagamento: ???</Text>
+     <Text style = {styles.texto}></Text>
      <Image 
         source={require('../../assets/usuario.png')}
         style={styles.usuario}
@@ -22,7 +22,7 @@ export default function Agendamento(){
       <Button
       title= "Opções"
       style = {styles.botao}
-      color = "#012F6B"
+      color = "#012f6b"
       />
        
      </TouchableOpacity>
@@ -34,7 +34,7 @@ export default function Agendamento(){
      <Text style = {styles.texto}>Data: ???</Text>
      <Text style = {styles.texto}>Valor: ???</Text>
      <Text style = {styles.texto}>Hórario: ???</Text>
-     <Text style = {styles.texto}>Forma de pagamento: ???</Text>
+     <Text style = {styles.texto}></Text>
      <Image 
         source={require('../../assets/usuario.png')}
         style={styles.usuario}
@@ -42,7 +42,7 @@ export default function Agendamento(){
       <Button
       title= "Opções"
       style = {styles.botao}
-      color = "#012F6B"
+      color = "#012f6b"
       />  
      </TouchableOpacity>
        
@@ -55,7 +55,7 @@ export default function Agendamento(){
      <Text style = {styles.texto}>Data: ???</Text>
      <Text style = {styles.texto}>Valor: ???</Text>
      <Text style = {styles.texto}>Hórario: ???</Text>
-     <Text style = {styles.texto}>Forma de pagamento: ???</Text>
+     <Text style = {styles.texto}></Text>
      <Image 
         source={require('../../assets/usuario.png')}
         style={styles.usuario}
@@ -63,9 +63,11 @@ export default function Agendamento(){
       <Button
       title= "Opções"
       style = {styles.botao}
-      color = "#012F6B"
+      color = "#012f6b"
       />  
      </TouchableOpacity>
+    
+     
      </ScrollView>
      </View>
    )
@@ -79,13 +81,12 @@ const styles = StyleSheet.create({
    alignItems: 'center',
  },
 
- 
  box:{
    width: 350,
    height: 200,
    borderRadius: 30,
    marginTop: 10,
-   backgroundColor: "#F34",
+   backgroundColor: "#BBB",
    justifyContent: 'center',
    alignItems: "center",
     

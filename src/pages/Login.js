@@ -2,9 +2,9 @@ import React, { useState} from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import firebase from '../Connection';
 
-export default function Login(props) {
-  
 
+
+export default function Login(props) { 
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -62,6 +62,7 @@ const AlertSucess = () =>
       value={email}
       onChangeText={txtEmail => onChangeEmail(txtEmail)}
       />
+
       <TextInput
       style= {styles.input}
       secureTextEntry= {true}
@@ -79,7 +80,7 @@ const AlertSucess = () =>
       <Text
         style = {styles.linkCadastro}
         onPress = { () => {props.navigation.navigate('Cadastro')}}
-      >Não possui uma conta? Clique aqui!
+      >Não possui uma conta? <Text style = {styles.text2}>Clique Aqui</Text>
       
       </Text>
     </View>
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   logo: {
     width: 200,
     height: 200,
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 30,
     marginTop: 30,
-    backgroundColor: "#012F6B",
+    backgroundColor: "#012f6b",
     justifyContent: 'center',
     alignItems: "center",
   },
@@ -130,5 +132,10 @@ const styles = StyleSheet.create({
     marginTop: 80,
     fontWeight: 'bold',
 
+  },
+  text2: {
+    marginTop: 80,
+    fontWeight: 'bold',
+    color: "#f00"
   }
 });

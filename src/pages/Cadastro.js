@@ -20,6 +20,7 @@ export default function Cadastro(props ,{navigation}) {
   let [numero, setNumero] = useState('');
   let [complemento, setComplemento] = useState('');
   let [senha, setSenha] = useState('');
+  let [senha2, setSenha2] = useState('');
 
   firebase.auth().createUserWithEmailAndPassword(email,senha).then(()=>{
     navegar();
@@ -51,7 +52,33 @@ export default function Cadastro(props ,{navigation}) {
     
   }
 
-
+const verifica = () =>{
+  if (email === "") {
+    Alert.alert("VERIFIQUE", "O Email não pode ser vazio")
+  }else if(cnpj === ""){
+    Alert.alert("VERIFIQUE", "O Cnpj não pode ser ")
+  }else if(razaoSocial === ""){
+    Alert.alert("VERIFIQUE", "A Razão Social não pode ser ")
+  }else if(nomeB === ""){
+    Alert.alert("VERIFIQUE", "O Nome da Barbearia não pode ser vazio ")
+  }else if(cep === ""){
+    Alert.alert("VERIFIQUE", "O CEP não pode ser vazio")
+  }else if(cidade === ""){
+    Alert.alert("VERIFIQUE", "O nome da cidade não pode ser vazio ")
+  }else if(estado === ""){
+    Alert.alert("VERIFIQUE", "O nome do estado não pode ser vazio ")
+  }else if(bairro === ""){
+    Alert.alert("VERIFIQUE", "O nome do bairro não pode ser vazio ")
+  }else if(endereco === ""){
+    Alert.alert("VERIFIQUE", "O endereço não pode ser vazio ")
+  }else if(numero === ""){
+    Alert.alert("VERIFIQUE", "O numero não pode ser vazio ")
+  }else if(senha != senha2){
+    Alert.alert("VERIFIQUE", "As senhas não condizem ")
+  }else{
+    pushFirebase(), props.navigation.navigate('Login');
+  }
+}
   return (
     <View  style={styles.container}>
         <ScrollView >
@@ -142,29 +169,28 @@ export default function Cadastro(props ,{navigation}) {
       <TextInput
       style= {styles.input}
       placeholder="Digite sua senha"
-      onChangeText={senha => setSenha(senha)} value= {senha}
+      onChangeText={senha => setSenha(senha)}
+      value= {senha}
       />
 
       <Text style={styles.titulo}>Confirme a sua senha</Text>
       <TextInput
       style= {styles.input}
       placeholder="Confirme a sua senha"
-      
-      //onChangeText={txtEmail => Email(txtEmail)}
+      onChangeText={senha2 => setSenha2(senha2)}
+      value= {senha2}
       />
 
       <TouchableOpacity
+        onPress={ verifica}
         style = {styles.botao}
         disable = {true}
         
       >
         <Text 
         style = {styles.botaoText}
-        onPress={ () => {pushFirebase(), props.navigation.navigate('Login')}}
         disable = {false}  
-        >
-          
-        Continuar</Text>
+        >Continuar</Text>
       
       </TouchableOpacity>
       <TouchableOpacity 
@@ -211,7 +237,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 10,
-    width: 300,
+    width: 330,
     height: 40,
     borderRadius: 7,
     backgroundColor: '#DCDCDC',
@@ -226,10 +252,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 50,
     
-    backgroundColor: "#012F6B",
+    backgroundColor: "#012f6b",
     justifyContent: 'center',
     alignItems: "center",
-    marginLeft: 78,
+    alignSelf: "center",
   },
   botaoText :{
     fontSize: 16,

@@ -2,13 +2,15 @@
 import React, {useState, useEffect} from 'react';
 import { FlatList, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, Button} from 'react-native';
 import firebase from '../Connection';
-
+import Navbar from '../components/Navbar'
+import Login from "./Login";
 
 
 export default function Perfil(props) {
 
 const [listClientes, setListClientes] = useState([]);
 const [listaDados, setListaDados] = useState([]);
+
 
 useEffect(() => {
   try {
@@ -57,12 +59,16 @@ for( var i = 0 ; i < total ; i++){
   };
     return (
         <View style = {styles.container}>
+
+          <List></List>
             <FlatList
+                renderLimit = {1}
                 data={listaDados}
                 keyExtractor={(item) =>item.key}
                 renderItem={({item}) =>
                 <View>
                  
+  
                     <Image source={require('../../assets/icons/usuazin.png')} style={styles.usuario}/>
                     <Image source={require('../../assets/icons/perfilzin.png')} style={styles.profile}/>
                     <Image source={require('../../assets/icons/emailzin.png')} style={styles.email}/>
@@ -190,7 +196,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     marginTop: 60,
-    backgroundColor: "#012F6B",
+    backgroundColor: "#012f6b",
     justifyContent: 'center',
     alignItems: "center",
     alignSelf: "center",
@@ -236,8 +242,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   botaoEdit :{
+
     fontSize: 16,
     fontWeight: "bold",
-    color: "#000",
+    color: "#012f6b",
+    marginLeft: -100,
   },
 });
