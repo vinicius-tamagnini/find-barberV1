@@ -9,22 +9,22 @@ export default function Historico(){
 const [listaDados, setListaDados] = useState([]);
 
 function Deletar(key){
-firebase.database().ref('/Clientes/'+key).remove()
+firebase.database().ref('/agendaBarbeiro/'+key).remove()
 }
 
 useEffect(() => {
   try {
-    firebase.database().ref('/dadosBarbeiro').on('value', (snapshot) => {
+    firebase.database().ref('/agendaBarbeiro').on('value', (snapshot) => {
       let list = [];
       
       snapshot.forEach((childItem) => {
         list.push({
           key: childItem.key,
-          email: childItem.val().email,
-          name: childItem.val().nomeBarbearia,
-          endereco: childItem.val().endereco,
+          valor: childItem.val().valor,
+          nome: childItem.val().nome,
+          data: childItem.val().data,
           horario: childItem.val().horario,
-          cnpj: childItem.val().cnpj
+          telefone: childItem.val().telefone
           
         });
       });
@@ -40,7 +40,6 @@ useEffect(() => {
   return (
       
       <View style = {styles.container}>
-      
          <FlatList
           data={listaDados}
           keyExtractor={(item) =>item.key}
@@ -50,11 +49,11 @@ useEffect(() => {
           <TouchableOpacity
           disabled = {true}
           style = {styles.box}>
-          <Text style = {styles.nome}>{item.name}</Text>
+          <Text style = {styles.nome}>{item.nome}</Text>
           <Text style = {styles.linha}>____________________________</Text>
-          <Text style = {styles.texto}>Email: {item.email} </Text>
-          <Text style = {styles.texto}>Endereco: {item.endereco}</Text>
-          <Text style = {styles.texto}>Cnpj: {item.cnpj}</Text>
+          <Text style = {styles.texto}>Data: {item.data} </Text>
+          <Text style = {styles.texto}>Valor: {item.valor}</Text>
+          <Text style = {styles.texto}>Telefone: {item.telefone}</Text>
           <Image 
               source={require('../../assets/usuario.png')}
               style={styles.usuario}
@@ -69,7 +68,6 @@ useEffect(() => {
               <Text style = {styles.botaoText}>LIGAR</Text>
             </TouchableOpacity>    
         </TouchableOpacity>
-
        
         </ScrollView>
         }/>
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
   marginLeft: 170,
   width: 65,
   height: 35,
-  backgroundColor: "#012f6b",
+  backgroundColor: "#000",
   borderRadius: 2,
   justifyContent: 'center',
   alignItems: 'center'
@@ -140,7 +138,7 @@ const styles = StyleSheet.create({
   marginLeft: -30,
   width: 65,
   height: 35,
-  backgroundColor: "#012f6b",
+  backgroundColor: "#000",
   borderRadius: 3,
   justifyContent: 'center',
   alignItems: 'center',

@@ -1,60 +1,52 @@
-import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, Button} from 'react-native';
-import Navbar from '../components/Navbar'
+import React , { useEffect, useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, Button, FlatList} from 'react-native';
+import firebase from '../Connection';
 
 export default function Agendamento(){ 
+
+  const [listaDados, setListaDados] = useState([]);
+
+useEffect(() => {
+  try {
+    firebase.database().ref('/agendaBarbeiro').on('value', (snapshot) => {
+      let list = [];
+      
+      snapshot.forEach((childItem) => {
+        list.push({
+          key: childItem.key,
+          nome: childItem.val().nome,
+          data: childItem.val().data,
+          horario: childItem.val().horario,
+          valor: childItem.val().valor
+          
+        });
+      });
+      setListaDados(list);
+    })
+
+  } catch (error) {
+    alert(error);
+  }
+}, [])
   return (
     <View style = {styles.container}> 
      <ScrollView style = {styles.ScrollView}>
-     <TouchableOpacity
-     disabled = {true}
-     style = {styles.box}>
-     <Text style = {styles.nome}>Cliente</Text>
-     <Text style = {styles.linha}>____________________________</Text>
-     <Text style = {styles.texto}>Data: ???</Text>
-     <Text style = {styles.texto}>Valor: ???</Text>
-     <Text style = {styles.texto}>Hórario: ???</Text>
-     <Text style = {styles.texto}></Text>
-     <Image 
-        source={require('../../assets/usuario.png')}
-        style={styles.usuario}
-      />
-      <Button
-      title= "Opções"
-      style = {styles.botao}
-      color = "#012f6b"
-      />
-       
-     </TouchableOpacity>
-     <TouchableOpacity
-     disabled = {true}
-     style = {styles.box}>
-     <Text style = {styles.nome}>Cliente</Text>
-     <Text style = {styles.linha}>____________________________</Text>
-     <Text style = {styles.texto}>Data: ???</Text>
-     <Text style = {styles.texto}>Valor: ???</Text>
-     <Text style = {styles.texto}>Hórario: ???</Text>
-     <Text style = {styles.texto}></Text>
-     <Image 
-        source={require('../../assets/usuario.png')}
-        style={styles.usuario}
-      />
-      <Button
-      title= "Opções"
-      style = {styles.botao}
-      color = "#012f6b"
-      />  
-     </TouchableOpacity>
-       
+     
 
-     <TouchableOpacity
+
+     <FlatList
+                data={listaDados}
+                keyExtractor={(item) =>item.key}
+                renderItem={({item}) =>
+                <View>
+                    <TouchableOpacity
      disabled = {true}
      style = {styles.box}>
-     <Text style = {styles.nome}>Cliente</Text>
+     <Text style = {styles.nome}>{item.nome}</Text>
      <Text style = {styles.linha}>____________________________</Text>
-     <Text style = {styles.texto}>Data: ???</Text>
-     <Text style = {styles.texto}>Valor: ???</Text>
-     <Text style = {styles.texto}>Hórario: ???</Text>
+  <Text style = {styles.texto}>Data: {item.data}</Text>
+  <Text style = {styles.texto}>Valor: {item.valor}</Text>
+  <Text style = {styles.texto}>Hórario: {item.horario}</Text>
      <Text style = {styles.texto}></Text>
      <Image 
         source={require('../../assets/usuario.png')}
@@ -63,10 +55,16 @@ export default function Agendamento(){
       <Button
       title= "Opções"
       style = {styles.botao}
-      color = "#012f6b"
+      color = "#000"
       />  
      </TouchableOpacity>
     
+                </View>
+        }
+            />      
+
+
+     
      
      </ScrollView>
      </View>

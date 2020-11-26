@@ -22,7 +22,7 @@ useEffect(() => {
           key: childItem.key,
           email: childItem.val().email,
           nomeBarbearia: childItem.val().nomeBarbearia,
-          endereco: childItem.val().endereco
+          cep: childItem.val().cep
           
         });
       });
@@ -34,16 +34,12 @@ useEffect(() => {
   }
 }, [])
 
-/*
-let total = listClientes.length
+
+let total = listaDados.length
 
 for( var i = 0 ; i < total ; i++){
-  if (listClientes[i].email === listEmail[0].email){
-  */
+  if (listaDados[i].email === listaDados[0].email){
 
-  function Editar(key,email,nomeBarbearia) {
-
-  }
 
   const showConfirm = ()=> {
      Alert.alert("digite","algo",[
@@ -57,15 +53,11 @@ for( var i = 0 ; i < total ; i++){
       },
       ]);
   };
+  
     return (
         <View style = {styles.container}>
 
-          <List></List>
-            <FlatList
-                renderLimit = {1}
-                data={listaDados}
-                keyExtractor={(item) =>item.key}
-                renderItem={({item}) =>
+          
                 <View>
                  
   
@@ -74,7 +66,28 @@ for( var i = 0 ; i < total ; i++){
                     <Image source={require('../../assets/icons/emailzin.png')} style={styles.email}/>
                     <Image source={require('../../assets/icons/calendazin.png')} style={styles.calendar}/>
 
-                    <TouchableOpacity style = {styles.botaoCaneta1} 
+
+                    <View style={styles.alltexts}>
+          <Text style={styles.title}>Nome: </Text>
+          <Text style={styles.text}>{listaDados[i].nomeBarbearia}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.title}>Email: </Text>
+          <Text style={styles.text}>{listaDados[i].email}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.title}>CEP: </Text>
+          <Text style={styles.text}>{listaDados[i].cep}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+         
+        </View>
+        <TouchableOpacity style = {styles.botao} 
+           onPress = { () => {props.navigation.navigate('Login')}}
+        >
+        <Text style = {styles.botaoText}>Sair</Text>
+        </TouchableOpacity>
+      
+
+
+                    {/* <TouchableOpacity style = {styles.botaoCaneta1} 
 
                       onPress = {showConfirm}>
                       <Text style = {styles.botaoEdit}> Editar </Text>
@@ -112,24 +125,23 @@ for( var i = 0 ; i < total ; i++){
                     onPress = { () => {props.navigation.navigate('Login')}}
                     >
                     <Text style = {styles.botaoText}>Sair</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 
                 </View>
-        }
-            />       
+           
         </View>
       
     );  
 
-  /*}else {
+}else {
     console.log("Algo errado aconteceu")
   }
 }
   return(
     <Text>Erro no banco</Text>
   );
-  */
 }
+
 
 
 
@@ -196,7 +208,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     marginTop: 60,
-    backgroundColor: "#012f6b",
+    backgroundColor: "#04fb04",
     justifyContent: 'center',
     alignItems: "center",
     alignSelf: "center",

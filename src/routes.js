@@ -62,7 +62,7 @@ function Tabs(){
   tabBarOptions={{
     activeTintColor: 'white',
     inactiveTintColor: 'gray',
-    activeBackgroundColor: "#012F6B",
+    activeBackgroundColor: "#ccc",
   }}
 >
   
