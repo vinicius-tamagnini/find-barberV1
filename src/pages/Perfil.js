@@ -1,6 +1,6 @@
   
 import React, {useState, useEffect} from 'react';
-import { FlatList, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, Button} from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import firebase from '../Connection';
 import Navbar from '../components/Navbar'
 import Login from "./Login";
@@ -8,7 +8,7 @@ import Login from "./Login";
 
 export default function Perfil(props) {
 
-const [listClientes, setListClientes] = useState([]);
+const [listEmail, setListEmail] = useState([]);
 const [listaDados, setListaDados] = useState([]);
 
 
@@ -22,11 +22,32 @@ useEffect(() => {
           key: childItem.key,
           email: childItem.val().email,
           nomeBarbearia: childItem.val().nomeBarbearia,
-          cep: childItem.val().cep
-          
+          cep: childItem.val().cep,
+          cnpj: childItem.val().cnpj,
+          endereco: childItem.val().endereco,
+          bairro: childItem.val().bairro,
+          senha: childItem.val().senha,
         });
       });
       setListaDados(list);
+    })
+
+  } catch (error) {
+    alert(error);
+  }
+}, [])
+
+useEffect(() => {
+  try {
+    firebase.database().ref('/EmailBarbeiro').on('value', (snapshot) => {
+      let list = [];
+      
+      snapshot.forEach((childItem) => {
+        list.push({
+          email: childItem.val().email,
+        });
+      });
+      setListEmail(list);
     })
 
   } catch (error) {
@@ -38,7 +59,7 @@ useEffect(() => {
 let total = listaDados.length
 
 for( var i = 0 ; i < total ; i++){
-  if (listaDados[i].email === listaDados[0].email){
+  if (listaDados[i].email === listEmail[0].email){
 
 
   const showConfirm = ()=> {
@@ -56,7 +77,7 @@ for( var i = 0 ; i < total ; i++){
   
     return (
         <View style = {styles.container}>
-
+          <ScrollView>
           
                 <View>
                  
@@ -70,13 +91,26 @@ for( var i = 0 ; i < total ; i++){
                     <View style={styles.alltexts}>
           <Text style={styles.title}>Nome: </Text>
           <Text style={styles.text}>{listaDados[i].nomeBarbearia}</Text>
-          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
           <Text style={styles.title}>Email: </Text>
           <Text style={styles.text}>{listaDados[i].email}</Text>
-          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
           <Text style={styles.title}>CEP: </Text>
           <Text style={styles.text}>{listaDados[i].cep}</Text>
-          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.title}>Cnpj: </Text>
+          <Text style={styles.text}>{listaDados[i].cnpj}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.title}>Endereço: </Text>
+          <Text style={styles.text}>{listaDados[i].endereco}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.title}>Bairro: </Text>
+          <Text style={styles.text}>{listaDados[i].bairro}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
+          <Text style={styles.title}>Senha: </Text>
+          <Text style={styles.text}>{listaDados[i].senha}</Text>
+          <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
+          
          
         </View>
         <TouchableOpacity style = {styles.botao} 
@@ -87,7 +121,7 @@ for( var i = 0 ; i < total ; i++){
       
 
 
-                    {/* <TouchableOpacity style = {styles.botaoCaneta1} 
+                   <TouchableOpacity style = {styles.botaoCaneta1} 
 
                       onPress = {showConfirm}>
                       <Text style = {styles.botaoEdit}> Editar </Text>
@@ -106,29 +140,34 @@ for( var i = 0 ; i < total ; i++){
                     onPress = {showConfirm}>
                     <Text style = {styles.botaoEdit}> Editar </Text>
 
-                  </TouchableOpacity>
-                   
-
-                    <View style={styles.alltexts}>
-                    <Text style={styles.title}>Nome: </Text>
-                    <Text style={styles.text}>{item.email}</Text>
-                    <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
-                    <Text style={styles.title}>Email: </Text>
-                    <Text style={styles.text}>{item.nomeBarbearia}</Text>
-                    <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
-                    <Text style={styles.title}>Endereço: </Text>
-                    <Text style={styles.text}>{item.endereco}</Text>
-                    <Text style={styles.line}>━━━━━━━━━━━━━━━━━━━</Text>
+                 </TouchableOpacity>
+                 <TouchableOpacity style = {styles.botaoCaneta4} 
                     
-                    </View>
-                    <TouchableOpacity style = {styles.botao} 
-                    onPress = { () => {props.navigation.navigate('Login')}}
-                    >
-                    <Text style = {styles.botaoText}>Sair</Text>
-                    </TouchableOpacity> */}
+                    onPress = {showConfirm}>
+                    <Text style = {styles.botaoEdit}> Editar </Text>
+
+                 </TouchableOpacity>
+                 <TouchableOpacity style = {styles.botaoCaneta5} 
+                    
+                    onPress = {showConfirm}>
+                    <Text style = {styles.botaoEdit}> Editar </Text>
+
+                 </TouchableOpacity>
+                 <TouchableOpacity style = {styles.botaoCaneta6} 
+                    
+                    onPress = {showConfirm}>
+                    <Text style = {styles.botaoEdit}> Editar </Text>
+
+                 </TouchableOpacity>
+                 <TouchableOpacity style = {styles.botaoCaneta7} 
+                    
+                    onPress = {showConfirm}>
+                    <Text style = {styles.botaoEdit}> Editar </Text>
+
+                 </TouchableOpacity>
                 
                 </View>
-           
+                </ScrollView>
         </View>
       
     );  
@@ -147,7 +186,8 @@ for( var i = 0 ; i < total ; i++){
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1,
+    backgroundColor: "#FFF"
   },
   usuario: {
     width: 120,
@@ -208,7 +248,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     marginTop: 60,
-    backgroundColor: "#04fb04",
+    backgroundColor: "#111",
     justifyContent: 'center',
     alignItems: "center",
     alignSelf: "center",
@@ -225,9 +265,9 @@ const styles = StyleSheet.create({
     height: 40,
     position: "absolute",
     borderRadius: 10,
-    marginLeft: 340,
+    marginLeft: 285,
     marginTop: 200,
-    backgroundColor: "#FFF",
+    backgroundColor: "#DDD",
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -236,9 +276,9 @@ const styles = StyleSheet.create({
     height: 40,
     position: "absolute",
     borderRadius: 10,
-    marginLeft: 340,
-    marginTop: 300,
-    backgroundColor: "#FFF",
+    marginLeft: 285,
+    marginTop: 293,
+    backgroundColor: "#DDD",
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -247,9 +287,53 @@ const styles = StyleSheet.create({
     height: 40,
     position: "absolute",
     borderRadius: 10,
-    marginLeft: 340,
-    marginTop: 400,
-    backgroundColor: "#FFF",
+    marginLeft: 285,
+    marginTop: 387,
+    backgroundColor: "#DDD",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoCaneta4:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 285,
+    marginTop: 480,
+    backgroundColor: "#DDD",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoCaneta5:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 285,
+    marginTop: 574,
+    backgroundColor: "#DDD",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoCaneta6:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 285,
+    marginTop: 667,
+    backgroundColor: "#DDD",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoCaneta7:{
+    width: 70,
+    height: 40,
+    position: "absolute",
+    borderRadius: 10,
+    marginLeft: 285,
+    marginTop: 761,
+    backgroundColor: "#DDD",
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -257,7 +341,7 @@ const styles = StyleSheet.create({
 
     fontSize: 16,
     fontWeight: "bold",
-    color: "#012f6b",
-    marginLeft: -100,
+    color: "#000",
+    
   },
 });

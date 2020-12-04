@@ -1,5 +1,5 @@
 import React , { useState, props} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ImageBackground} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import firebase from '../Connection';
 import { NavigationContainer } from '@react-navigation/native';
@@ -81,6 +81,7 @@ const verifica = () =>{
 }
   return (
     <View  style={styles.container}>
+       <ImageBackground source={require('../../assets/ITAp.jpg')} style={styles.image}>
         <ScrollView >
       <Text style={styles.titulo}>Informações da Barbearia</Text>
       <Text style = {styles.descricao}>Preecha as informações sobre a sua
@@ -200,6 +201,7 @@ const verifica = () =>{
 
       </TouchableOpacity>
       </ScrollView>
+      </ImageBackground>
     </View>
   
     
@@ -251,11 +253,17 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 5,
     marginTop: 50,
-    
-    backgroundColor: "#012f6b",
+    backgroundColor: "#222",
     justifyContent: 'center',
     alignItems: "center",
     alignSelf: "center",
+  },
+  image: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "100%"
   },
   botaoText :{
     fontSize: 16,
@@ -273,12 +281,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     padding: 5,
+    color: "#FFF"
   },
   descricao: {
     marginTop: 10,
     marginLeft: 10,
     padding: 5,
     fontWeight: "bold",
+    color: "#FFF"
   },
   vazio: {
     width: 200,
